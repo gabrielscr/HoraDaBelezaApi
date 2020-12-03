@@ -16,6 +16,8 @@ namespace HoraDaBelezaApi.Dto
 
         public string Imagem { get; set; }
 
+        public double Avaliacao { get; set; }
+
         public ServicoDto[] Servicos { get; set; }
     }
 }

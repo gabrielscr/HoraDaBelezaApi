@@ -27,15 +27,6 @@ namespace HoraDaBelezaApi.Controllers
             return new JsonResult(json);
         }
 
-        [HttpGet]
-        [Route("Obter")]
-        public async Task<IActionResult> Obter([FromQuery] int id)
-        {
-            var json = await vendaService.Obter(id);
-
-            return new JsonResult(json);
-        }
-
         [HttpPost]
         [Route("Inserir")]
         public async Task<Resultado> Inserir([FromBody] VendaDto request)

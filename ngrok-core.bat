@@ -1,0 +1,1 @@
+ngrok http -host-header=localhost --region=sa https://localhost:44352/

@@ -28,22 +28,6 @@ namespace HoraDaBelezaApi.Handlers
                  .Set<Venda>()
                  .AsNoTracking()
                  .Where(w => w.CompradorId == usuarioId)
-                 .Select(e => new VendaDto
-                 {
-                     Id = e.Id,
-                     Valor = e.Valor,
-                     DataHora = e.DataHora.ToString("dd/MM/yyyy HH:mm"),
-                     DataAgendada = e.DataAgendada.ToString("dd/MM/yyyy HH:mm"),
-                 })
-                 .ToArrayAsync();
-        }
-
-        public async Task<VendaDto> Obter(int pedidoId)
-        {
-            return await _serverContext
-                    .Set<Venda>()
-                    .AsNoTracking()
-                    .Where(e => e.Id == pedidoId)
                     .Select(e => new VendaDto
                     {
                         Id = e.Id,
@@ -64,7 +48,7 @@ namespace HoraDaBelezaApi.Handlers
                             Valor = e.Servico.Valor
                         }
                     })
-                    .FirstOrDefaultAsync();
+                 .ToArrayAsync();
         }
 
         public async Task<Resultado> Inserir(VendaDto request)

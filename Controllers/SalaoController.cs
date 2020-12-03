@@ -16,8 +16,8 @@ namespace HoraDaBelezaApi.Controllers
         }
 
         [HttpGet]
-        [Route("Obter")]
-        public async Task<IActionResult> Obter([FromQuery] int id)
+        [Route("Obter/{id}")]
+        public async Task<IActionResult> Obter([FromRoute] int id)
         {
             var json = await salaoService.Obter(id);
 

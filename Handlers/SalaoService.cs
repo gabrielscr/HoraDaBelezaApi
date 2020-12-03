@@ -26,6 +26,7 @@ namespace HoraDaBelezaApi.Handlers
                 {
                     Id = s.Id,
                     Imagem = s.Imagem,
+                    Avaliacao = s.Avaliacao,
                     Nome = s.Nome,
                     Profissional = s.Profissional,
                     Servicos = s.Servicos
@@ -51,7 +52,8 @@ namespace HoraDaBelezaApi.Handlers
                     Id = s.Id,
                     Imagem = s.Imagem,
                     Nome = s.Nome,
-                    Profissional = s.Profissional
+                    Profissional = s.Profissional,
+                    Avaliacao = s.Avaliacao
                 })
                 .ToArrayAsync();
         }

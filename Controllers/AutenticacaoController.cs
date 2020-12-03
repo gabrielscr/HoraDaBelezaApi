@@ -1,4 +1,5 @@
 ﻿using HoraDaBelezaApi.Dominio;
+using HoraDaBelezaApi.Handlers;
 using HoraDaBelezaApi.Infra.Seguranca;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,14 @@ namespace HoraDaBelezaApi.Controllers
     [Route("[controller]")]
     public class AutenticacaoController : ControllerBase
     {
+
+        private readonly UsuarioService _usuarioService;
+
+        public AutenticacaoController(UsuarioService usuarioService)
+        {
+            _usuarioService = usuarioService;
+        }
+
         [AllowAnonymous]
         [HttpPost]
         [Route("Autenticar")]
@@ -19,8 +28,13 @@ namespace HoraDaBelezaApi.Controllers
 
             if (valido)
             {
-                return accessManager.GerarToken(usuario);
+                return new
+                {
+                    Token = accessManager.GerarToken(usuario),
+                    Usuario = await _usuarioService.ObterComEmail(usuario.Email)
+                };
             }
+
             else
             {
                 return new
@@ -41,7 +55,7 @@ namespace HoraDaBelezaApi.Controllers
                 UserName = usuario.Email,
                 Email = usuario.Email,
                 EmailConfirmed = true
-            }, usuario.Senha, Roles.USUARIO);
+            }, usuario, Roles.USUARIO);
         }
     }
 }

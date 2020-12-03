@@ -12,6 +12,8 @@ namespace HoraDaBelezaApi.Dominio
 
         public string Imagem { get; set; }
 
+        public double Avaliacao { get; set; }
+
         public List<SalaoServico> Servicos { get; set; }
     }
 }

@@ -63,18 +63,16 @@ namespace HoraDaBelezaApi.Infra.Seguranca
             return credenciaisValidas;
         }
 
-        public async Task<Resultado> CriarUsuario(ApplicationUser user, string password, string initialRole = null)
+        public async Task<Resultado> CriarUsuario(ApplicationUser user, Usuario request, string initialRole = null)
         {
             var resultado = new IdentityResult();
 
-            var usuario = await _userManager.FindByNameAsync(user.UserName);
-
-            usuario = await _userManager.FindByEmailAsync(user.Email);
+            var usuario = await _userManager.FindByEmailAsync(request.Email);
 
             if (usuario == null)
             {
                 resultado = await _userManager
-                    .CreateAsync(user, password);
+                    .CreateAsync(user, request.Senha);
 
                 if (resultado.Succeeded &&
                     !string.IsNullOrWhiteSpace(initialRole))
@@ -84,8 +82,9 @@ namespace HoraDaBelezaApi.Infra.Seguranca
                     await _usuarioService.Inserir(new Usuario
                     {
                         Id = user.Id,
+                        Nome = request.Nome,
                         Senha = user.PasswordHash,
-                        Email = user.Email
+                        Email = request.Email
                     });
                 }
 

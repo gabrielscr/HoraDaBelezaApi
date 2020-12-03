@@ -53,6 +53,22 @@ namespace HoraDaBelezaApi.Handlers
             return usuario;
         }
 
+        public async Task<UsuarioDto> ObterComEmail(string email)
+        {
+            var usuario = await _serverContext
+                .Set<Usuario>()
+                .Where(w => w.Email == email)
+                .Select(s => new UsuarioDto
+                {
+                    Email = s.Email,
+                    Nome = s.Nome,
+                    Id = s.Id
+                })
+                .FirstOrDefaultAsync();
+
+            return usuario;
+        }
+
         public async Task Inserir(Usuario usuario)
         {
             await _serverContext.AddAsync(usuario);
